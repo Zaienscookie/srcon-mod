@@ -78,7 +78,10 @@ public class WebSocketClient {
     }
 
     private void sendJson(String type, String dataJson) {
-        String json = "{\"type\":\"" + type + "\",\"server\":\"" + escapeJson(serverId) + "\",\"server_name\":\"" + escapeJson(serverName) + "\"," + dataJson + "}";
+        String inner = dataJson.trim();
+        if (inner.startsWith("{")) inner = inner.substring(1);
+        if (inner.endsWith("}")) inner = inner.substring(0, inner.length() - 1);
+        String json = "{\"type\":\"" + type + "\",\"server\":\"" + escapeJson(serverId) + "\",\"server_name\":\"" + escapeJson(serverName) + "\"," + inner + "}";
         sendMessage(json);
     }
 
@@ -167,7 +170,21 @@ public class WebSocketClient {
 
         private void handleMessage(String message) {
             SRConMod.LOGGER.info("[SRCon] 收到消息: {}", message);
+            // 兼容 Python json.dumps 的 "key": "value" 带空格格式，统一为紧凑格式
+            message = message.replaceAll("\"\\s*:\\s*\"", "\":\"");
             try {
+                if (message.contains("\"type\":\"group_chat\"")) {
+                    String gmsg = extractJsonValue(message, "msg");
+                    if (gmsg != null && !gmsg.isEmpty()) {
+                        var gserver = ServerLifecycleHooks.getCurrentServer();
+                        if (gserver != null) {
+                            String esc = gmsg.replace("\\", "\\\\").replace("\"", "\\\"");
+                            String tellraw = "tellraw @a {\"text\":\"" + esc + "\"}";
+                            gserver.m_129892_().m_230957_(gserver.m_129893_(), tellraw);
+                            SRConMod.LOGGER.info("[SRCon] 群聊广播: {}", gmsg);
+                        }
+                    }
+                }
                 if (message.contains("\"type\":\"command\"")) {
                     String cmd = extractJsonValue(message, "cmd");
                     String ackId = extractJsonValue(message, "ack_id");
