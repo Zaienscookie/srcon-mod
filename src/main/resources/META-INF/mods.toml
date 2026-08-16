@@ -1,0 +1,19 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="srcon"
+version="1.0.0"
+displayName="SRCon - 群服互通"
+credits="Zains"
+authors="Zains"
+description="QQ群与Minecraft服务器双向通信Mod"
+side="SERVER"
+
+[[dependencies.srcon]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="SERVER"
