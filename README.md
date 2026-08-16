@@ -16,7 +16,7 @@ Minecraft 1.20.1 **Forge 服务端 Mod**，作为「QQ群 ↔ Minecraft 服务�
 |------|--------|------|
 | `SRCON_SERVER_ID` | `s1` | 服务器唯一标识（对应 AstrBot 侧白名单/转发配置） |
 | `SRCON_SERVER_NAME` | `生存服` | 服务器显示名称 |
-| `SRCON_WS_URL` | `ws://127.0.0.1:8765` | AstrBot 插件 WebSocket 地址 |
+| `SRCON_WS_URL` | `ws://127.0.0.1:8766`（8765 常被 mineastr 等插件占用） | AstrBot 插件 WebSocket 地址 |
 | `SRCON_TOKEN` | `srcon_default_token` | 与 AstrBot 插件 config.yaml 中 `token` 一致 |
 
 ## 编译（无 Gradle，方案A：直接 javac）

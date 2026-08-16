@@ -21,7 +21,7 @@ public class SRConMod {
     private WebSocketClient wsClient;
     private String serverId = "s1";
     private String serverName = "生存服";
-    private String wsUrl = "ws://127.0.0.1:8765";
+    private String wsUrl = "ws://127.0.0.1:8766";
     private String token = "srcon_default_token";
 
     public SRConMod() {
