@@ -14,3 +14,7 @@ run/
 
 # 临时
 *.log
+
+# 解压产物
+libs/
+MOD_VERIFY_RESULT.txt
